@@ -16,6 +16,12 @@ export class CreateMenuIconDto {
   icon: AvailableIcons;
 
   @ApiProperty({
+    description: 'The path to import the icon from react-icons',
+    example: 'react-icons/md',
+  })
+  importPath: string;
+
+  @ApiProperty({
     description: 'The description of the menu icon',
     example: 'Home page icon',
     nullable: true,

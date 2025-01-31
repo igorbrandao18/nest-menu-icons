@@ -19,6 +19,7 @@ model MenuIcon {
   icon        String
   category    String?
   description String?
+  importPath  String    // Campo para armazenar o caminho de importação
   isActive    Boolean   @default(true)
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt

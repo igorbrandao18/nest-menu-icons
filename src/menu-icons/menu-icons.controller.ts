@@ -1,12 +1,14 @@
-import { Controller, Get, Post, Body, Param, Delete, Put } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Put, UseInterceptors } from '@nestjs/common';
 import { MenuIconsService } from './menu-icons.service';
 import type { MenuIcon } from '@prisma/client';
 import { ApiTags, ApiOperation, ApiResponse, ApiParam } from '@nestjs/swagger';
 import { CreateMenuIconDto } from './dto/create-menu-icon.dto';
 import { UpdateMenuIconDto } from './dto/update-menu-icon.dto';
+import { ResponseInterceptor } from '../interceptors/response.interceptor';
 
 @ApiTags('menu-icons')
 @Controller('menu-icons')
+@UseInterceptors(ResponseInterceptor)
 export class MenuIconsController {
   constructor(private readonly menuIconsService: MenuIconsService) {}
 
@@ -55,10 +57,10 @@ export class MenuIconsController {
   })
   @ApiResponse({ status: 404, description: 'Menu icon not found' })
   async update(
-    @Param('id') id: string, 
-    @Body() menuIcon: UpdateMenuIconDto
+    @Param('id') id: string,
+    @Body() updateMenuIconDto: UpdateMenuIconDto,
   ): Promise<MenuIcon> {
-    return this.menuIconsService.update(id, menuIcon);
+    return this.menuIconsService.update(id, updateMenuIconDto);
   }
 
   @Delete(':id')
